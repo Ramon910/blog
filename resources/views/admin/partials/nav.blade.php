@@ -2,7 +2,7 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">@lang('admin.layout.header')</li>
     <!-- Optionally, you can add icons to the links -->
-    <li class="active"><a href="{{ Route('admin.home') }}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
+    <li class="active"><a href="{{ Route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
     <li class="treeview">
         <a href="#"><i class="fa fa-link"></i> <span>Blog</span>
             <span class="pull-right-container">

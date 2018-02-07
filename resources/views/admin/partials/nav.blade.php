@@ -2,16 +2,26 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">@lang('admin.layout.header')</li>
     <!-- Optionally, you can add icons to the links -->
-    <li class="active"><a href="{{ Route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
-    <li class="treeview">
+    <li {{ Request()->is('admin')? 'class=active':'' }}>
+        <a href="{{ Route('dashboard') }}">
+            <i class="fa fa-dashboard"></i> <span>Inicio</span>
+        </a>
+    </li>
+    <li class="treeview {{ Request()->is('admin/posts*')? 'active':'' }}">
         <a href="#"><i class="fa fa-link"></i> <span>Blog</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ Route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver todos los posts</a></li>
-            <li><a href="#"><i class="fa fa-pencil"></i>Crear Posts</a></li>
+            <li {{ Request()->is('admin/posts')? 'class=active':'' }}>
+                <a href="{{ Route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver todos los posts
+                </a>
+            </li>
+            <li {{ Request()->is('admin/posts/create')? 'class=active':'' }}>
+                <a href="{{ Route('admin.posts.create') }}"><i class="fa fa-pencil"></i>Crear Posts
+                </a>
+            </li>
         </ul>
     </li>
 </ul>

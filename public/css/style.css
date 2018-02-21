@@ -65,10 +65,15 @@ header nav li a:hover{
 .post .tag{
 	margin: 0 5px;
 }
-.post footer{
-	margin-top: 45px;
-	background: none;
+.post .tag a{
+	color: inherit;
+	font-size: inherit;
 }
+.post footer{
+margin-top: 45px;
+background: none;
+}
+
 
 .masonry {
     column-count: 2;
@@ -267,7 +272,36 @@ a.btn-bar{
           right: 7px;
           
       }
-      
+
+	  .buttons-social-media-share{
+		  margin-bottom: 20px;
+	  }
+
+	  .buttons-social-media-share .share-buttons{
+		  margin: 0;
+		  padding: 0;
+	  }
+
+	  .buttons-social-media-share .share-buttons li{
+		  list-style-type: none;
+		  float: left;
+		  margin-left: 10px;
+	  }
+
+	  -overly{
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  position: absolute;
+		  color: white;
+		  font-size: 30px;
+		  background: rgba(0,0,0,.7);
+	  }
+
+	  .post .category a {
+		  color: inherit;
+		  font-size: inherit;
+	  }
       
 
 

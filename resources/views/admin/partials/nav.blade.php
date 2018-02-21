@@ -15,11 +15,15 @@
         </a>
         <ul class="treeview-menu">
             <li {{ Request()->is('admin/posts')? 'class=active':'' }}>
-                <a href="{{ Route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver todos los posts
+                <a href="{{ Route('admin.posts.index') }}">
+                    <i class="fa fa-eye"></i>
+                    Ver todos los posts
                 </a>
             </li>
-            <li {{ Request()->is('admin/posts/create')? 'class=active':'' }}>
-                <a href="{{ Route('admin.posts.create') }}"><i class="fa fa-pencil"></i>Crear Posts
+            <li>
+                <a href="#" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-pencil"></i>
+                    Crear Posts
                 </a>
             </li>
         </ul>

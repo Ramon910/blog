@@ -12,6 +12,14 @@
 @endsection
 
 @section('content')
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Listado de publicaciones</h3>
+            <button class="btn btn-primary pull-right " data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-plus"></i>
+                Crear publicacion
+            </button>
+        </div>
     <div class="box-body">
         <table id="posts-table" class="table table-bordered table-striped">
             <thead>
@@ -29,14 +37,26 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->excerpt}}</td>
                 <td>
-                    <a href="#" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                    <a href="{{ route('posts.show', $post) }}" target="_blank" class="btn btn-xs btn-default">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-xs btn-info">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" style="display:inline;">
+                        {{ csrf_field() }} {{ method_field('DELETE') }}
+                        <button class="btn btn-xs btn-danger"
+                                onclick="return confirm('¿Seguro que quiere eliminar esta publicacion?')">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             @endforeach
             </tbody>
         </table>
-    </div
+    </div>
+    </div>
 @endsection
 
 @push('styles')
@@ -60,4 +80,5 @@
             })
         })
     </script>
+
 @endpush

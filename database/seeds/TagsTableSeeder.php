@@ -25,5 +25,13 @@ class TagsTableSeeder extends Seeder
         $tag = new Tag;
         $tag->name=('tag3');
         $tag->save();
+
+        $tag = new Tag;
+        $tag->name=('tag4');
+        $tag->save();
+
+        $tag = new Tag;
+        $tag->name=('tag5');
+        $tag->save();
     }
 }

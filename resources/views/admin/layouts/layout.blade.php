@@ -61,7 +61,7 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="index2.htm" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>B</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -369,6 +369,26 @@ desired effect
 @stack('scripts')
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/adminlte.min.js"></script>
+
+@include('admin.posts.create')
+
+@unless(request()->is('admin/posts/*'))
+<script>
+    if(window.location.hash === '#create'){
+        $('#post-title').focus();
+        $('#myModal').modal('show');
+    }
+
+    $('#myModal').on('hide.bs.modal', function () {
+        window.location.hash = '#';
+    });
+
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#post-title').focus();
+        window.location.hash = '#create';
+    });
+</script>
+@endunless
 
 </body>
 </html>

@@ -31,6 +31,24 @@
     </form>
 </div>
 
+@push('scripts')
+    <script>
+        if(window.location.hash === '#create'){
+            $('#post-title').focus();
+            $('#myModal').modal('show');
+        }
+
+        $('#myModal').on('hide.bs.modal', function () {
+            window.location.hash = '#';
+        });
+
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#post-title').focus();
+            window.location.hash = '#create';
+        });
+    </script>
+@endpush
+
 
 
 

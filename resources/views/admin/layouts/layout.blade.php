@@ -366,29 +366,13 @@ desired effect
 <script src="/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-@stack('scripts')
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/adminlte.min.js"></script>
 
-@include('admin.posts.create')
-
 @unless(request()->is('admin/posts/*'))
-<script>
-    if(window.location.hash === '#create'){
-        $('#post-title').focus();
-        $('#myModal').modal('show');
-    }
-
-    $('#myModal').on('hide.bs.modal', function () {
-        window.location.hash = '#';
-    });
-
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#post-title').focus();
-        window.location.hash = '#create';
-    });
-</script>
+    @include('admin.posts.create')
 @endunless
+@stack('scripts')
 
 </body>
 </html>

@@ -21,6 +21,7 @@
                         <div class="row">
 
                             @foreach($post->photos as $photo)
+                                {!! Form::model($photo,['action' => ['TodosController@update', $photo], 'method' => 'DELETE']) !!}
                                 <form action="{{ route('admin.photos.destroy', $photo) }}" method="POST">
                                     {{ csrf_field() }}{{ method_field('DELETE') }}
                                     <div class="col-md-2">
@@ -30,6 +31,7 @@
 
                                     </div>
                                 </form>
+                                {!! Form::close() !!}
                             @endforeach
 
                         </div>
@@ -39,16 +41,12 @@
         </div>
     @endif
     <div class="row">
-        <form action="{{ route('admin.posts.update', $post) }}" method="POST">
-            {{ csrf_field() }} {{ method_field('PUT') }}
+        {!! Form::model($post,['route' => ['admin.posts.update', $post], 'method' => 'PUT']) !!}
             <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label for="">Título de la publicación</label>
-                            <input type="text" name="title" class="form-control"
-                                   value="{{ old('title', $post->title) }}"
-                                   placeholder="Escribe el título de la publicación">
+                            {{ Form::bsText('title', 'Titulo del posts', old('title', $post->title) ,['placeholder' => 'Escribe aqui el titulo']) }}
                             {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
@@ -129,7 +127,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        {!! Form::close() !!}
     </div>
 @endsection
 

@@ -36,10 +36,27 @@ class Post extends Model
         return $this->hasMany(Photo::class);
     }
 
-    public function setTitleAttribute($title)
+    public static function create(array $attributes = [])
     {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = str_slug($title);
+        $post = static::query()->create($attributes);
+        $post->generateSlug();
+        return $post;
+    }
+
+    public function generateSlug()
+    {
+        $slug = str_slug($this->title);
+        if($this->whereSlug($slug)->exists()){
+            $slug .= '-' . $this->id;
+        }
+
+        $this->slug = $slug;
+        $this->save();
+    }
+
+    public function isPublished()
+    {
+        return ! is_null($this->pusblished_at) && $this->published_at <= today();
     }
 
     public function setPublishedAtAttribute($published_at)

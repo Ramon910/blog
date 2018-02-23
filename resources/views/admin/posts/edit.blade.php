@@ -21,16 +21,15 @@
                         <div class="row">
 
                             @foreach($post->photos as $photo)
-                                {!! Form::model($photo,['action' => ['TodosController@update', $photo], 'method' => 'DELETE']) !!}
-                                <form action="{{ route('admin.photos.destroy', $photo) }}" method="POST">
-                                    {{ csrf_field() }}{{ method_field('DELETE') }}
+                                {!! Form::open(['route' => ['admin.photos.destroy', $photo], 'method' => 'DELETE']) !!}
+                                <!--<form action="{{ route('admin.photos.destroy', $photo) }}" method="POST">
+                                    {{ csrf_field() }}{{ method_field('DELETE') }} -->
                                     <div class="col-md-2">
-
-                                        <button class="btn btn-danger btn-xs" style="position: absolute;"><i class="fa fa-remove"></i> </button>
+                                        {{ Form::bsSubmit('<i class="fa fa-remove">', ['class' => 'btn btn-danger btn-xs', 'style' => '"position: absolute"']) }}
+                                        <!--<button class="btn btn-danger btn-xs" style="position: absolute;"><i class="fa fa-remove"></i> -->
                                         <img src="{{ Storage::url($photo->url) }}" class="img-responsive">
-
                                     </div>
-                                </form>
+                                <!-- </form> -->
                                 {!! Form::close() !!}
                             @endforeach
 
@@ -46,21 +45,41 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                            {{ Form::bsText('title', 'Titulo del posts', old('title', $post->title) ,['placeholder' => 'Escribe aqui el titulo']) }}
+
+                            {{ Form::bsText('title',
+                                            'Titulo del posts',
+                                             old('title', $post->title) ,
+                                             ['placeholder' => 'Escribe aqui el titulo'])}}
+
                             {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
-                            <label for="">Contenido de la publicación</label>
+                            {{ Form::bsTextArea('body',
+                                                'Contenido de la publicacion',
+                                                 old('body', $post->body),
+                                                 ['id' => 'editor',
+                                                 'class'=> 'form-control',
+                                                 'rows' => '10',
+                                                 'placeholder' => 'Escribe el contenido de la publicacion'
+                                                 ] ) }}
+                            <!--<label for="">Contenido de la publicación</label>
                             <textarea name="body" id="editor"
                                       class="form-control" rows="10"
-                                      placeholder="Escribe el contenido de la publicación">{{ old('body', $post->body) }}</textarea>
+                                      placeholder="Escribe el contenido de la publicación">{{ old('body', $post->body) }}</textarea>-->
                             {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('iframe') ? 'has-error' : '' }}">
-                            <label>Audio o video de la publicación</label>
+                            {{ Form::bsTextArea('iframe',
+                                                'Audio o video de la publicacion',
+                                                 old('iframe', $post->iframe),
+                                                 ['class'=> 'form-control',
+                                                 'rows' => '2',
+                                                 'placeholder' => 'Escribe el contenido de la publicacion'
+                                                 ] ) }}
+                            <!--<label>Audio o video de la publicación</label>
                             <textarea name="iframe"
                                       class="form-control" rows="2"
-                                      placeholder="Escribe el contenido de la publicación">{{ old('iframe', $post->iframe) }}</textarea>
+                                      placeholder="Escribe el contenido de la publicación">{{ old('iframe', $post->iframe) }}</textarea>-->
                             {!! $errors->first('iframe', '<span class="help-block">:message</span>') !!}
                         </div>
                     </div>
@@ -70,18 +89,24 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Fecha de publicación:</label>
                             <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
+                                {{ Form::bsText('published_at',
+                                                'Fecha de publicacion',
+                                                old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null),
+                                                 ['class' => 'form-control pull-right',
+                                                  'id' => 'datepicker'])}}
+                                <!--<label>Fecha de publicación:</label>
                                 <input type="text" name="published_at"
                                        value="{{ old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}"
                                        class="form-control pull-right"
-                                       id="datepicker">
+                                       id="datepicker">-->
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                           <!-- {{ Form::bsSelect('category_id', ['L'=> 'large'], '',['class' => 'form-control select2']) }}-->
                             <label for="">Categorías</label>
                             <select name="category_id" class="form-control select2">
                                 <option value="">Selecciona una categoría</option>
@@ -107,9 +132,15 @@
                             {!! $errors->first('tags', '<span class="help-block">:message</span>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('excerpt') ? 'has-error' : '' }}">
-                            <label for="">Extracto de la publicación</label>
+                            {{ Form::bsTextArea('excerpt',
+                                                'Extracto de la publicacion',
+                                                 old('excerpt', $post->excerpt),
+                                                 ['class'=> 'form-control',
+                                                  'rows' => '5'
+                                                 ])}}
+                           <!-- <label for="">Extracto de la publicación</label>
                             <textarea name="excerpt" class="form-control"
-                            >{{ old('excerpt', $post->excerpt) }}</textarea>
+                            >{{ old('excerpt', $post->excerpt) }}</textarea>-->
                             {!! $errors->first('excerpt', '<span class="help-block">:message</span>') !!}
                         </div>
 
@@ -122,7 +153,8 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Guardar Publicación</button>
+                            {{ Form::bsSubmit('Guardar Publicacion', ['class'=>'btn btn-primary btn-block']) }}
+                            <!--<button type="submit" class="btn btn-primary btn-block">Guardar Publicación</button>-->
                         </div>
                     </div>
                 </div>

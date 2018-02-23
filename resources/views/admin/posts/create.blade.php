@@ -1,6 +1,7 @@
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <form action="{{ route('admin.posts.store', '#create') }}" method="POST">
+    {!! Form::open(['route' => ['admin.posts.store', '#create'], 'method' => 'POST']) !!}
+    <!--<form action="{{ route('admin.posts.store', '#create') }}" method="POST">-->
         {{ csrf_field() }}
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -10,7 +11,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group {{ $errors->has('title')?'has-error':'' }}">
-                        <input id="post-title"
+                        {{ Form::bsText('title',
+                                        '',
+                                        old('title'),
+                                        ['class' => 'form-control',
+                                         'id' => 'post-title',
+                                         'placeholder' => 'Escribe el titulo',
+                                         'required',
+                                         'autofocus'
+                                         ])}}
+                        <!--<input id="post-title"
                                type="text"
                                name="title"
                                class="form-control"
@@ -18,17 +28,20 @@
                                placeholder="Escribe el titulo"
                                required
                                autofocus
-                        >
+                        >-->
                         {!! $errors->first('title', '<span clas="help-block">:message</span>') !!}
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-primary">Crear Publicacion</button>
+                    {{ Form::bsSubmit('Cerrar', ['class'=>'btn btn-default pull-left', 'data-dismiss' => 'modal']) }}
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>-->
+                    {{ Form::bsSubmit('Crear Publicacion', ['class'=>'btn btn-primary']) }}
+                    <!--<button class="btn btn-primary">Crear Publicacion</button>-->
                 </div>
             </div>
         </div>
-    </form>
+    {{ Form::close() }}
+    <!--</form>-->
 </div>
 
 @push('scripts')
